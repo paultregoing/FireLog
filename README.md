@@ -14,7 +14,7 @@ $ php example.php
 System has dockerd:
 
 ```
-$ docker run --rm --interactive --tty --volume $PWD:/app composer dump-autoload
+$ docker run -it --rm --tty --volume $PWD:/app composer dump-autoload
 $ docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:8.2.4-cli php example.php
 ```
 
