@@ -1,0 +1,19 @@
+{
+  "name": "paultregoing/firelog",
+  "description": "PSR-3 compliant log library with concurrent handlers",
+  "keywords": ["log", "logging", "psr-3"],
+  "homepage": "https://github.com/paultregoing/firelog",
+  "authors": [
+    {
+      "name": "Paul Tregoing",
+      "email": "paultregoing@yahoo.com",
+      "homepage": "https://github.com/paultregoing"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"FireLog\\": "src/"}
+  },
+  "require": {
+    "php": ">=8.1"
+  }
+}
