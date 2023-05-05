@@ -8,7 +8,7 @@ use FireLog\Util\EventLoop;
 
 class EventLoopTest extends TestCase
 {
-    public function testQueuingAndProcessingEvents()
+    public function testQueuingAndProcessingEvents(): void
     {
         $main = new \Fiber(function () {
             for ($i = 0; $i < 3; $i++) {

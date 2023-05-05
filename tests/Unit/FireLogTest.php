@@ -8,9 +8,10 @@ use Hamcrest\Matchers as Matcher;
 use FireLog\FireLog;
 use FireLog\Util\LogLevelEnum;
 use FireLog\Handlers\HandlerInterface;
+
 class FireLogTest extends TestCase
 {
-    public function tearDown():void {
+    public function tearDown(): void {
         \Mockery::close();
     }
 
@@ -68,7 +69,7 @@ class FireLogTest extends TestCase
      *
      * @runInSeparateProcess
      */
-    public function testLogLevelPreventsCalls()
+    public function testLogLevelPreventsCalls(): void
     {
         $eventLoop = \Mockery::mock('alias:FireLog\Util\EventLoop');
         $eventLoop->shouldReceive('await')
