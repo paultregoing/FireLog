@@ -166,15 +166,18 @@ class FireLog implements LoggerInterface
              * When the child is done it will return, then enter the terminated state.
              * Terminated fibers are removed from the loop, eventually the loop is empty and we're done.
              */
-            foreach ($handlers as $handlerClass) {
-                $parent = new \Fiber(function () use ($message, $handlerClass) {
-                    $handler = new $handlerClass;
+            foreach ($handlers as $handler) {
+                if (is_string($handler)) {
+                    $handler = new $handler();
+                }
+
+                $parent = new \Fiber(function () use ($message, $handler) {
                     EventLoop::await($handler->write($message));
                 });
                 $parent->start();
             }
 
-            EventLoop::run();
+            EventLoop::process();
         });
 
         $mainFiber->start();

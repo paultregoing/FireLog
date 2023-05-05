@@ -40,7 +40,7 @@ class EventLoop
     /**
      * @return void
      */
-    public static function run(): void
+    public static function process(): void
     {
         /*
          * The counterpart loop to the one in self::await()
@@ -65,5 +65,15 @@ class EventLoop
                 unset(self::$awaiting[$index]);
             }
         }
+    }
+
+    /**
+     * Utility method to aid in unit testing
+     *
+     * @return int no. of awaiting fibers
+     */
+    public static function countAwaiting(): int
+    {
+        return count(self::$awaiting);
     }
 }

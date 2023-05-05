@@ -9,7 +9,7 @@ use \FireLog\Handlers\FakeDBHandler;
 use \FireLog\Handlers\FakeSmsGatewayHandler;
 use \FireLog\Util\LogLevelEnum;
 
-$fLog = new FireLog(new Config());
+$fLog = new FireLog(getConf());
 
 fwrite(STDOUT, PHP_EOL . "First we'll log some debug messages to console..." . PHP_EOL);
 $fLog->log(LogLevelEnum::Debug, 'test debug');
@@ -27,42 +27,50 @@ fwrite(STDOUT, PHP_EOL . PHP_EOL);
  * For the sake of brevity we'll dump conf into a plain object. Ordinarily I'd be using a Yaml parser or similar.
  * Here we'll define the handler classes we want for each PSR-3 log level.
  */
-class Config
+function getConf(): object
 {
-    public array $handlers = [
-        'debug' => [
-            ConsoleHandler::class,
-        ],
-        'info' => [
-            ConsoleHandler::class,
-        ],
-        'notice' => [
-            ConsoleHandler::class,
-            FakeDBHandler::class,
-        ],
-        'warning' => [
-            ConsoleHandler::class,
-            FakeDBHandler::class,
-        ],
-        'error' => [
-            ConsoleHandler::class,
-            FakeDBHandler::class,
-        ],
-        'critical' => [
-            ConsoleHandler::class,
-            FakeDBHandler::class,
-        ],
-        'alert' => [
-            ConsoleHandler::class,
-            FakeDBHandler::class,
-        ],
-        'emergency' => [
-            ConsoleHandler::class,
-            FakeDBHandler::class,
-            FakeEmailHandler::class,
-            FakeSmsGatewayHandler::class,
-        ],
-    ];
+    $ret = new Class {
+        // array of handler classnames or object instances
+        public array $handlers = [
+            'debug' => [
+//                ConsoleHandler::class,
+            ],
+            'info' => [
+                ConsoleHandler::class,
+            ],
+            'notice' => [
+                ConsoleHandler::class,
+                FakeDBHandler::class,
+            ],
+            'warning' => [
+                ConsoleHandler::class,
+                FakeDBHandler::class,
+            ],
+            'error' => [
+                ConsoleHandler::class,
+                FakeDBHandler::class,
+            ],
+            'critical' => [
+                ConsoleHandler::class,
+                FakeDBHandler::class,
+            ],
+            'alert' => [
+                ConsoleHandler::class,
+                FakeDBHandler::class,
+            ],
+            'emergency' => [
+                ConsoleHandler::class,
+                FakeDBHandler::class,
+                FakeEmailHandler::class,
+                FakeSmsGatewayHandler::class,
+            ],
+        ];
 
-    public LogLevelEnum $maxLevel = LogLevelEnum::Debug;
+        public LogLevelEnum $maxLevel = LogLevelEnum::Debug;
+    };
+
+    // add a concrete handler instance for 'debug' messages
+    $ret->handlers['debug'][] = new ConsoleHandler();
+
+    return $ret;
 }
