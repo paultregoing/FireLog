@@ -7,15 +7,16 @@ Non-blocking async logging, using vanilla PHP 8.1 Fibers. PSR-3 compliant. Mostl
 System has PHP >= 8.1, and composer:
 
 ```
-$ composer dump-autoload
+$ composer install
 $ php example.php
 ```
 
 System has dockerd:
 
 ```
-$ docker run -it --rm --tty --volume $PWD:/app composer dump-autoload
+$ docker run -it --rm --tty --volume $PWD:/app composer install
 $ docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:8.2.4-cli php example.php
+$ docker run -it --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:8.2.4-cli php vendor/bin/phpunit
 ```
 
 ## Docco
